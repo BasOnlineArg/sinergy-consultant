@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sinergy Consultant</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0D2545;--navy-mid:#1A3A6B;
+  --orange:#E86920;--orange-light:#F28C4A;
+  --gray:#4A5568;--gray-light:#EDF2F7;--gray-mid:#CBD5E0;--white:#FFFFFF;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#2D3748;background:#fff;overflow-x:hidden;}
+
+nav{position:fixed;top:0;width:100%;background:var(--navy);z-index:200;padding:0 5%;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{font-size:20px;font-weight:700;color:var(--white);}
+.logo span{color:var(--orange);}
+.nav-links{display:flex;gap:28px;}
+.nav-btn{background:none;border:none;font-size:13px;color:rgba(255,255,255,.75);cursor:pointer;font-family:inherit;transition:color .2s;padding:0;}
+.nav-btn:hover{color:var(--orange);}
+.nav-cta{background:var(--orange);color:var(--white);padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:140px 5% 100px;min-height:92vh;display:flex;align-items:center;}
+.hero-inner{max-width:700px;}
+.hero-tag{display:inline-block;background:rgba(232,105,32,.15);border:1px solid rgba(232,105,32,.4);color:var(--orange-light);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:24px;}
+.hero h1{font-size:clamp(32px,5vw,54px);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:20px;}
+.hero h1 span{color:var(--orange);}
+.hero p{font-size:17px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:36px;max-width:560px;}
+.btn-primary{background:var(--orange);color:var(--white);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;border:none;font-family:inherit;}
+.btn-secondary{background:none;border:1.5px solid rgba(255,255,255,.3);color:var(--white);padding:14px 28px;border-radius:8px;font-size:15px;margin-left:14px;cursor:pointer;font-family:inherit;transition:border-color .2s;}
+.btn-secondary:hover{border-color:var(--orange);}
+.hero-stats{display:flex;gap:40px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);}
+.stat-num{font-size:28px;font-weight:700;color:var(--orange);}
+.stat-label{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px;}
+
+section{padding:80px 5%;}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.section-title{font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--navy);margin-bottom:14px;}
+.section-sub{font-size:16px;color:var(--gray);line-height:1.8;max-width:600px;}
+.section-header{margin-bottom:48px;}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-img{background:var(--navy);border-radius:12px;overflow:hidden;}
+.about-text p{font-size:15px;color:var(--gray);line-height:1.85;margin-bottom:16px;}
+.about-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.tag{background:var(--gray-light);color:var(--navy);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;}
+
+.services{background:var(--gray-light);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.service-card{background:var(--white);border-radius:12px;padding:28px;border:1px solid var(--gray-mid);transition:border-color .2s,transform .2s;cursor:pointer;}
+.service-card:hover{border-color:var(--orange);transform:translateY(-3px);}
+.service-icon{width:48px;height:48px;background:rgba(232,105,32,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
+.service-card h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.service-card p{font-size:13px;color:var(--gray);line-height:1.75;pointer-events:none;}
+.service-link{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;color:var(--orange);letter-spacing:.5px;}
+
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.why-card{padding:28px;border-radius:12px;border:1px solid var(--gray-mid);text-align:center;}
+.why-num{font-size:36px;font-weight:700;color:var(--orange);}
+.why-card h4{font-size:14px;font-weight:700;color:var(--navy);margin:8px 0 6px;}
+.why-card p{font-size:13px;color:var(--gray);line-height:1.7;}
+
+.sectors{background:var(--navy);}
+.sectors .section-title{color:var(--white);}
+.sectors .section-sub{color:rgba(255,255,255,.6);}
+.sectors-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.sector-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.8);padding:10px 22px;border-radius:30px;font-size:13px;cursor:default;transition:background .25s,border-color .25s,color .25s,box-shadow .25s;}
+.sector-pill:hover{background:rgba(232,105,32,.28);border-color:var(--orange);color:#fff;box-shadow:0 0 14px rgba(232,105,32,.4);}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.contact-info h3{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px;}
+.contact-info > p{font-size:15px;color:var(--gray);line-height:1.8;margin-bottom:28px;}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;}
+.contact-item-icon{width:40px;height:40px;background:rgba(232,105,32,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.contact-item-text label{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:3px;}
+.contact-item-text p{font-size:14px;color:var(--navy);font-weight:500;line-height:1.9;}
+.wa-row{display:flex;align-items:center;gap:8px;margin-top:2px;}
+.wa-icon{width:20px;height:20px;flex-shrink:0;}
+.wa-link{font-size:14px;color:#25D366;font-weight:600;text-decoration:none;cursor:pointer;}
+.wa-link:hover{text-decoration:underline;}
+.contact-form{background:var(--gray-light);border-radius:14px;padding:36px;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 14px;border:1.5px solid var(--gray-mid);border-radius:8px;font-size:14px;color:#2D3748;background:var(--white);outline:none;font-family:inherit;}
+.form-group textarea{height:110px;resize:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn-submit{width:100%;background:var(--orange);color:var(--white);border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;}
+footer{background:var(--navy);color:rgba(255,255,255,.55);text-align:center;padding:28px 5%;font-size:13px;}
+footer span{color:var(--orange);}
+
+/* CURTAIN */
+.curtain-overlay{position:fixed;inset:0;z-index:300;pointer-events:none;opacity:0;transition:opacity .2s;}
+.curtain-overlay.active{pointer-events:all;opacity:1;}
+.curtain-half{position:absolute;left:0;width:100%;height:50%;overflow:hidden;transition:transform .6s cubic-bezier(.77,0,.18,1);}
+.curtain-half.top{top:0;transform:translateY(0);}
+.curtain-half.bot{bottom:0;transform:translateY(0);}
+.curtain-overlay.open .curtain-half.top{transform:translateY(-100%);}
+.curtain-overlay.open .curtain-half.bot{transform:translateY(100%);}
+.curtain-half canvas{display:block;width:100%;height:100%;}
+.curtain-half.top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:110px;z-index:2;background:linear-gradient(to bottom,transparent,rgba(5,15,35,.96));pointer-events:none;}
+.curtain-half.bot::before{content:'';position:absolute;top:0;left:0;right:0;height:110px;z-index:2;background:linear-gradient(to top,transparent,rgba(5,15,35,.96));pointer-events:none;}
+
+/* PANEL */
+.service-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);width:min(780px,92vw);max-height:82vh;overflow-y:auto;background:var(--white);border-radius:16px;z-index:400;opacity:0;transition:opacity .45s .18s,transform .45s .18s cubic-bezier(.77,0,.18,1);padding:40px;border-top:4px solid var(--orange);}
+.service-panel.open{opacity:1;transform:translate(-50%,-50%) scale(1);}
+.panel-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--gray);}
+.panel-close:hover{color:var(--orange);}
+.panel-icon{font-size:40px;margin-bottom:16px;}
+.panel-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.panel-title{font-size:26px;font-weight:700;color:var(--navy);margin-bottom:16px;}
+.panel-desc{font-size:15px;color:var(--gray);line-height:1.85;margin-bottom:24px;}
+.panel-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.panel-feature{background:var(--gray-light);border-radius:10px;padding:16px;}
+.panel-feature h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.panel-feature p{font-size:12px;color:var(--gray);line-height:1.6;}
+.panel-cta{background:var(--orange);color:var(--white);padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:inherit;}
+
+@media(max-width:768px){
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:24px;}
+  .btn-secondary,.nav-links{display:none;}
+  .panel-features{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="curtain-overlay" id="curtainOverlay">
+  <div class="curtain-half top"><canvas id="cvTop"></canvas></div>
+  <div class="curtain-half bot"><canvas id="cvBot"></canvas></div>
+</div>
+
+<div class="service-panel" id="servicePanel">
+  <button class="panel-close" id="panelClose">✕</button>
+  <div class="panel-icon" id="panelIcon"></div>
+  <div class="panel-tag">Servicio</div>
+  <h2 class="panel-title" id="panelTitle"></h2>
+  <p class="panel-desc" id="panelDesc"></p>
+  <div class="panel-features" id="panelFeatures"></div>
+  <button class="panel-cta" id="panelCta">Solicitar este servicio →</button>
+</div>
+
+<div id="main-content">
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Sinergy<span>.</span>Consultant</div>
+    <div class="nav-links">
+      <button class="nav-btn" data-scroll="about">Nosotros</button>
+      <button class="nav-btn" data-scroll="services">Servicios</button>
+      <button class="nav-btn" data-scroll="why">¿Por qué elegirnos?</button>
+      <button class="nav-btn" data-scroll="sectors">Sectores</button>
+      <button class="nav-btn" data-scroll="contact">Contacto</button>
+    </div>
+    <button class="nav-cta" data-scroll="contact">Solicitar consulta</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Consultora Técnica Integral</div>
+    <h1>Soluciones que <span>protegen</span> y hacen crecer tu organización</h1>
+    <p>Especialistas en Higiene y Seguridad, Auditoría Interna, Integridad Estructural, Medio Ambiente y Topografía. Acompañamos cada etapa de tu proyecto con rigor técnico y compromiso.</p>
+    <button class="btn-primary" data-scroll="contact">Solicitar una consulta</button>
+    <button class="btn-secondary" data-scroll="services">Ver servicios</button>
+    <div class="hero-stats">
+      <div><div class="stat-num">+15</div><div class="stat-label">Años de experiencia</div></div>
+      <div><div class="stat-num">+150</div><div class="stat-label">Proyectos realizados</div></div>
+      <div><div class="stat-num">+65</div><div class="stat-label">Clientes activos</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 340" style="width:100%;height:auto;display:block;padding:24px;">
+        <g stroke="rgba(232,105,32,0.4)" stroke-width="1.2" fill="none">
+          <line x1="150" y1="60" x2="254" y2="142"/><line x1="254" y1="142" x2="215" y2="272"/>
+          <line x1="215" y1="272" x2="85" y2="272"/><line x1="85" y1="272" x2="46" y2="142"/>
+          <line x1="46" y1="142" x2="150" y2="60"/><line x1="150" y1="60" x2="215" y2="272"/>
+          <line x1="150" y1="60" x2="85" y2="272"/><line x1="254" y1="142" x2="85" y2="272"/>
+          <line x1="46" y1="142" x2="215" y2="272"/><line x1="46" y1="142" x2="254" y2="142"/>
+        </g>
+        <text x="150" y="181" text-anchor="middle" font-size="33" fill="#E86920">♻</text>
+        <circle cx="150" cy="60" r="32" fill="rgba(13,37,69,0.9)" stroke="rgba(232,105,32,0.7)" stroke-width="1.5"/>
+        <text x="150" y="70" text-anchor="middle" font-size="27">🦺</text>
+        <text x="150" y="103" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Higiene y</text>
+        <text x="150" y="114" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Seguridad</text>
+        <circle cx="254" cy="142" r="32" fill="rgba(13,37,69,0.9)" stroke="rgba(232,105,32,0.7)" stroke-width="1.5"/>
+        <text x="254" y="152" text-anchor="middle" font-size="27">🏗️</text>
+        <text x="254" y="185" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Integridad</text>
+        <text x="254" y="196" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Estructural</text>
+        <circle cx="215" cy="272" r="32" fill="rgba(13,37,69,0.9)" stroke="rgba(232,105,32,0.7)" stroke-width="1.5"/>
+        <text x="215" y="282" text-anchor="middle" font-size="27">📐</text>
+        <text x="215" y="315" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Topografía</text>
+        <circle cx="85" cy="272" r="32" fill="rgba(13,37,69,0.9)" stroke="rgba(232,105,32,0.7)" stroke-width="1.5"/>
+        <text x="85" y="282" text-anchor="middle" font-size="27">🌿</text>
+        <text x="85" y="315" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Medio Ambiente</text>
+        <circle cx="46" cy="142" r="32" fill="rgba(13,37,69,0.9)" stroke="rgba(232,105,32,0.7)" stroke-width="1.5"/>
+        <text x="46" y="152" text-anchor="middle" font-size="27">🔍</text>
+        <text x="46" y="185" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Auditoría</text>
+        <text x="46" y="196" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.85)">Interna</text>
+      </svg>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">Sobre nosotros</div>
+      <h2 class="section-title">Experiencia técnica con visión integral</h2>
+      <p>Somos una consultora multidisciplinaria radicada en la Patagonia Argentina. Brindamos servicios especializados a empresas industriales, constructoras e instituciones que buscan excelencia en gestión técnica, normativa y ambiental.</p>
+      <p>Nuestro equipo de profesionales certificados trabaja bajo estándares nacionales e internacionales, garantizando soluciones precisas, documentadas y aplicables a cada realidad operativa.</p>
+      <div class="about-tags">
+        <span class="tag">ISO 45001</span><span class="tag">ISO 14001</span><span class="tag">ISO 9001</span><span class="tag">SRT</span><span class="tag">IRAM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-header">
+    <div class="section-tag">Nuestros servicios</div>
+    <h2 class="section-title">Todo lo que tu empresa necesita en un solo lugar</h2>
+    <p class="section-sub">Hacé click en cualquier servicio para conocer más detalles.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card" data-service="higiene">
+      <div class="service-icon">🦺</div>
+      <h3>Higiene y Seguridad</h3>
+      <p>Gestión integral de riesgos laborales, relevamientos, capacitaciones y documentación según la Ley 19.587 y sus decretos.</p>
+      <span class="service-link">Ver más →</span>
+    </div>
+    <div class="service-card" data-service="auditoria">
+      <div class="service-icon">📋</div>
+      <h3>Auditoría Interna Integrada</h3>
+      <p>Diagnóstico y evaluación de sistemas de gestión integrados con enfoque en mejora continua y cumplimiento normativo.</p>
+      <span class="service-link">Ver más →</span>
+    </div>
+    <div class="service-card" data-service="estructural">
+      <div class="service-icon">🏗️</div>
+      <h3>Integridad Estructural</h3>
+      <p>Inspección y evaluación técnica de estructuras civiles e industriales, informes de aptitud y planes de mantenimiento.</p>
+      <span class="service-link">Ver más →</span>
+    </div>
+    <div class="service-card" data-service="ambiente">
+      <div class="service-icon">🌿</div>
+      <h3>Medio Ambiente</h3>
+      <p>Estudios de impacto ambiental, gestión de residuos, monitoreo y planes de gestión ambiental para industrias.</p>
+      <span class="service-link">Ver más →</span>
+    </div>
+    <div class="service-card" data-service="topografia">
+      <div class="service-icon">📐</div>
+      <h3>Topografía</h3>
+      <p>Relevamientos topográficos, nivelaciones, mensuras y cartografía técnica con profesionales matriculados.</p>
+      <span class="service-link">Ver más →</span>
+    </div>
+    <div class="service-card" data-scroll="contact" style="border:1.5px solid var(--orange);background:rgba(232,105,32,.03);">
+      <div class="service-icon" style="background:rgba(232,105,32,.15);">💬</div>
+      <h3>¿Necesitás algo específico?</h3>
+      <p>Cada proyecto es único. Consultanos y diseñamos una solución a medida para tu empresa.</p>
+      <span class="service-link">Contactanos →</span>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="section-header">
+    <div class="section-tag">¿Por qué elegirnos?</div>
+    <h2 class="section-title">Nuestros diferenciales</h2>
+    <p class="section-sub">Más de una década acompañando organizaciones con rigor técnico, compromiso y resultados medibles.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-num">01</div><h4>Equipo multidisciplinario</h4><p>Profesionales matriculados en cada especialidad, con actualización permanente en normativa nacional e internacional.</p></div>
+    <div class="why-card"><div class="why-num">02</div><h4>Enfoque integral</h4><p>Coordinamos todas las áreas de tu proyecto desde un único punto de contacto, ahorrando tiempo y recursos.</p></div>
+    <div class="why-card"><div class="why-num">03</div><h4>Documentación rigurosa</h4><p>Informes técnicos detallados, listos para presentar ante organismos de control, clientes y auditores externos.</p></div>
+    <div class="why-card"><div class="why-num">04</div><h4>Compromiso y respuesta rápida</h4><p>Tiempos de respuesta ágiles y acompañamiento continuo durante toda la ejecución del servicio contratado.</p></div>
+  </div>
+</section>
+
+<section class="sectors" id="sectors">
+  <div class="section-header">
+    <div class="section-tag" style="color:var(--orange-light);">Sectores</div>
+    <h2 class="section-title">Industrias que atendemos</h2>
+    <p class="section-sub">Trabajamos con empresas de distintos rubros que requieren gestión técnica especializada y cumplimiento normativo.</p>
+  </div>
+  <div class="sectors-grid">
+    <span class="sector-pill">⚙️ Industria manufacturera</span>
+    <span class="sector-pill">🏗️ Construcción e infraestructura</span>
+    <span class="sector-pill">⛽ Oil &amp; Gas</span>
+    <span class="sector-pill">🌾 Agroindustria</span>
+    <span class="sector-pill">🏭 Minería</span>
+    <span class="sector-pill">🚛 Logística y transporte</span>
+    <span class="sector-pill">🐟 Industria pesquera</span>
+    <span class="sector-pill">🔋 Energías renovables</span>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <div class="section-tag">Contacto</div>
+    <h2 class="section-title">¿Hablamos de tu proyecto?</h2>
+    <p class="section-sub">Completá el formulario y nos ponemos en contacto en menos de 24 horas.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Información de contacto</h3>
+      <p>Estamos listos para ayudarte. Contanos en qué servicio estás interesado y un especialista se comunicará con vos a la brevedad.</p>
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div class="contact-item-text"><label>Ubicación</label><p>Trelew, Chubut<br/>Caleta Olivia, Santa Cruz<br/>Neuquén, Neuquén</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📧</div>
+        <div class="contact-item-text"><label>Email</label><p>sinergy.consultant.patagonia@gmail.com</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div class="contact-item-text">
+          <label>Teléfono / WhatsApp</label>
+          <div class="wa-row">
+            <svg class="wa-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#25D366"/>
+              <path d="M23.5 19.9c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51-.17-.01-.37-.01-.57-.01s-.52.07-.8.37c-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="white"/>
+            </svg>
+            <span class="wa-link" id="waLink">+54 9 297 425-4840</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label>Nombre</label><input type="text" placeholder="Tu nombre"/></div>
+        <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nombre de tu empresa"/></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group">
+        <label>Servicio de interés</label>
+        <select>
+          <option value="">Seleccioná un servicio...</option>
+          <option>Higiene y Seguridad</option>
+          <option>Auditoría Interna Integrada</option>
+          <option>Integridad Estructural</option>
+          <option>Medio Ambiente</option>
+          <option>Topografía</option>
+          <option>Consulta general</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Mensaje</label><textarea placeholder="Contanos brevemente sobre tu proyecto o necesidad..."></textarea></div>
+      <button class="btn-submit">Enviar consulta</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Sinergy Consultant</span> — Todos los derechos reservados. Patagonia Argentina.</p>
+</footer>
+</div>
+
+<script>
+/* ── scroll helper ── */
+function scrollTo(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── delegate ALL click events from document level ── */
+document.addEventListener('click', function(e){
+  // scroll triggers
+  const scrollEl = e.target.closest('[data-scroll]');
+  if(scrollEl){ scrollTo(scrollEl.dataset.scroll); return; }
+  // service card triggers
+  const card = e.target.closest('[data-service]');
+  if(card){ openService(card.dataset.service); return; }
+  // panel close
+  if(e.target.id === 'panelClose' || e.target === document.getElementById('curtainOverlay')){ closePanel(); return; }
+  // panel cta
+  if(e.target.id === 'panelCta'){ closePanel(); setTimeout(()=>scrollTo('contact'),650); return; }
+  // WA link
+  if(e.target.id === 'waLink'){ window.open('https://wa.me/5492974254840','_blank'); return; }
+});
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
+
+/* ── service data ── */
+const services = {
+  higiene:{icon:'🦺',title:'Higiene y Seguridad Laboral',
+    desc:'Brindamos un servicio integral de Higiene y Seguridad en el Trabajo conforme a la Ley 19.587, el Decreto 351/79 y la normativa de la SRT. Acompañamos a las empresas en el cumplimiento legal, la prevención de accidentes y la construcción de una cultura de seguridad sostenible.',
+    features:[
+      {icon:'📝',title:'Relevamiento y documentación',text:'Elaboración y actualización de Programas de Seguridad, Legajos Técnicos y documentación exigida por la SRT.'},
+      {icon:'⚠️',title:'Identificación de riesgos',text:'Relevamiento CyMAT, matrices de riesgo y planes de acción correctivos.'},
+      {icon:'🎓',title:'Capacitaciones',text:'Programas de formación en seguridad para operarios, supervisores y personal jerárquico.'},
+      {icon:'🚨',title:'Gestión de emergencias',text:'Planes de evacuación, simulacros y gestión de accidentes e incidentes laborales.'},
+    ]},
+  auditoria:{icon:'📋',title:'Auditoría Interna Integrada',
+    desc:'Realizamos auditorías internas de sistemas de gestión integrados (SGI) bajo las normas ISO 9001, ISO 14001 e ISO 45001. Nuestro enfoque está orientado a la mejora continua, la identificación de no conformidades y el fortalecimiento de los procesos organizacionales.',
+    features:[
+      {icon:'🔎',title:'Diagnóstico inicial',text:'Evaluación del estado de situación de los sistemas de gestión frente a los requisitos normativos vigentes.'},
+      {icon:'📊',title:'Auditoría de procesos',text:'Revisión sistemática de procesos clave con evidencia documentada y hallazgos trazables.'},
+      {icon:'📌',title:'Informe de no conformidades',text:'Clasificación de hallazgos, análisis de causas raíz y planes de acción propuestos.'},
+      {icon:'🔄',title:'Seguimiento de acciones',text:'Acompañamiento en la implementación de acciones correctivas y verificación de su eficacia.'},
+    ]},
+  estructural:{icon:'🏗️',title:'Integridad Estructural',
+    desc:'Ofrecemos servicios de inspección, evaluación y diagnóstico de estructuras civiles e industriales. Nuestros informes son herramientas clave para la toma de decisiones en mantenimiento, ampliaciones y habilitaciones.',
+    features:[
+      {icon:'🏢',title:'Inspección visual y técnica',text:'Relevamiento de estructuras de hormigón, acero, madera y mixtas con registro fotográfico y planillas técnicas.'},
+      {icon:'🧪',title:'Ensayos no destructivos',text:'Técnicas de END para evaluación de integridad sin afectar la operatividad de la instalación.'},
+      {icon:'📄',title:'Informes de aptitud',text:'Emisión de informes para presentación ante organismos municipales, provinciales y clientes privados.'},
+      {icon:'🛠️',title:'Planes de mantenimiento',text:'Planes preventivos y correctivos orientados a extender la vida útil estructural.'},
+    ]},
+  ambiente:{icon:'🌿',title:'Medio Ambiente',
+    desc:'Asesoramos a industrias y organismos en la gestión ambiental responsable, el cumplimiento de la legislación vigente y la minimización del impacto sobre el entorno, bajo los estándares de ISO 14001 y normativa provincial y nacional aplicable.',
+    features:[
+      {icon:'📋',title:'Estudios de impacto ambiental',text:'Elaboración de EIA para proyectos industriales, mineros y de infraestructura ante organismos de contralor.'},
+      {icon:'🗑️',title:'Gestión de residuos',text:'Planes de gestión de residuos sólidos urbanos, industriales y peligrosos conforme a normativa.'},
+      {icon:'📈',title:'Monitoreo ambiental',text:'Programas de monitoreo de aire, agua, suelo y ruido con informes periódicos de cumplimiento.'},
+      {icon:'📁',title:'Plan de Gestión Ambiental',text:'Elaboración de PGA para proyectos que requieren habilitación o renovación de certificados ambientales.'},
+    ]},
+  topografia:{icon:'📐',title:'Topografía',
+    desc:'Contamos con profesionales matriculados y equipos de última generación para brindar servicios topográficos de precisión en relevamientos urbanos, rurales e industriales en toda la región patagónica.',
+    features:[
+      {icon:'🗺️',title:'Relevamientos topográficos',text:'Levantamientos planimétricos y altimétricos para proyectos de construcción, catastro e ingeniería civil.'},
+      {icon:'📏',title:'Nivelaciones y replanteos',text:'Nivelaciones de precisión y replanteo de obras civiles e industriales con control de avance.'},
+      {icon:'📐',title:'Mensuras y subdivisiones',text:'Mensuras, subdivisiones y unificaciones de parcelas con tramitación ante el Registro Catastral.'},
+      {icon:'🛰️',title:'Cartografía y SIG',text:'Cartografía técnica digital e integración con sistemas de información geográfica (SIG/GIS).'},
+    ]},
+};
+
+/* ── curtain ── */
+const overlay = document.getElementById('curtainOverlay');
+const panel   = document.getElementById('servicePanel');
+const cvTop   = document.getElementById('cvTop');
+const cvBot   = document.getElementById('cvBot');
+
+function drawCurtains(){
+  const vw = window.innerWidth, vh = window.innerHeight, hh = Math.ceil(vh/2);
+  [cvTop,cvBot].forEach(cv=>{
+    cv.width=vw; cv.height=hh;
+    const ctx=cv.getContext('2d');
+    ctx.fillStyle='#0B1F40'; ctx.fillRect(0,0,vw,hh);
+    ctx.strokeStyle='rgba(232,105,32,0.07)'; ctx.lineWidth=1;
+    for(let x=0;x<vw;x+=44){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,hh);ctx.stroke();}
+    for(let y=0;y<hh;y+=44){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(vw,y);ctx.stroke();}
+    ctx.font='bold 13px Segoe UI,sans-serif';
+    ctx.fillStyle='rgba(255,255,255,0.04)';
+    ctx.textAlign='center';
+    ctx.fillText('SINERGY CONSULTANT — PATAGONIA ARGENTINA',vw/2,hh/2);
+  });
+}
+
+function openService(key){
+  const s=services[key];
+  if(!s) return;
+  document.getElementById('panelIcon').textContent=s.icon;
+  document.getElementById('panelTitle').textContent=s.title;
+  document.getElementById('panelDesc').textContent=s.desc;
+  document.getElementById('panelFeatures').innerHTML=s.features.map(f=>`
+    <div class="panel-feature"><h4>${f.icon} ${f.title}</h4><p>${f.text}</p></div>`).join('');
+  drawCurtains();
+  overlay.classList.add('active');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    overlay.classList.add('open');
+    panel.classList.add('open');
+  }));
+  document.body.style.overflow='hidden';
+}
+
+function closePanel(){
+  overlay.classList.remove('open');
+  panel.classList.remove('open');
+  setTimeout(()=>{
+    overlay.classList.remove('active');
+    document.body.style.overflow='';
+  },650);
+}
+</script>
+</body>
+</html>
