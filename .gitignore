@@ -2,9 +2,8 @@
 node_modules/
 /.pnp
 .pnp.js
-.yarn/install-state.gz
 
-# env files — NUNCA subir al repo
+# env — NUNCA subir al repo
 .env.local
 .env*.local
 
